@@ -1,14 +1,15 @@
 body {
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
+    direction: rtl;
 }
 
 .container {
     width: 90vw;
-    height: 90vh;
+    min-height: 90vh;
     background-color: bisque;
     display: flex;
     flex-direction: column;
@@ -38,6 +39,22 @@ body {
     text-indent: 11px;
 }
 
+.container h1 {}
+
+.container ul {
+    display: flex;
+    margin-bottom: 35px;
+    width: 53%;
+    align-items: center;
+    justify-content: space-between;
+}
+.container ul li {
+    cursor: pointer;
+    background-color: white;
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
 .container .tasks {
     display: flex;
     flex-direction: column;
@@ -55,7 +72,9 @@ body {
     border-radius: 5px;
 }
 
-.container .tasks .task .txt {}
+.container .tasks .task .txt {
+    overflow-wrap: anywhere;
+}
 
 .container .tasks .task.completed {
     opacity: .7;
@@ -69,15 +88,21 @@ body {
 
 .container .tasks .task .actions {
     display: flex;
-    gap: 10px;
+    gap: 4px;
+    margin-right: 22px;
 }
 
 .actions .btn {
-    padding: 4px 20px;
-    border-radius: 3px;
+    padding: 4px 8px;
+    width: fit-content;
+    border-radius: 2px;
     color: #fff;
     text-transform: capitalize;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
 }
 
 .actions .btn.done {
@@ -87,3 +112,24 @@ body {
 .actions .btn.delete {
     background-color: indianred;
 }
+
+
+
+.container .info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    margin-top: 35px;
+}
+.container .info div {
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+.container .info .quantity {}
+.container .info .delete-all {}
