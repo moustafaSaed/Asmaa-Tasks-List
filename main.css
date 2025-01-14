@@ -1,3 +1,7 @@
+:root {
+    --main-clr: #795548;
+}
+
 body {
     min-height: 100vh;
     width: 100vw;
@@ -5,20 +9,30 @@ body {
     align-items: center;
     justify-content: center;
     direction: rtl;
+    background-image: url("imgs/backgrounds/backg.png");
+    background-size: cover;
 }
 
 .container {
     width: 90vw;
     min-height: 90vh;
-    background-color: bisque;
+    background-color: #e5cec5;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
 }
 
 .container .form {
-    margin-bottom: 30px;
+    width: 45vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .container input {
@@ -28,9 +42,26 @@ body {
     outline: none;
 }
 
-.container input.input {}
+.container input.input {
+    color: var(--main-clr);
+    border: 1px solid;
+    width: 34vw;
+}
 
-.container input.add {}
+.container input.add {
+    background-color: var(--main-clr);
+    color: white;
+    transition: all .5s;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -ms-transition: all .5s;
+    -o-transition: all .5s;
+    width: 9vw;
+}
+.container input.add:focus {
+    opacity: .9;
+    scale: 1.05;
+}
 
 .error {
     font-size: 14px;
@@ -39,20 +70,39 @@ body {
     text-indent: 11px;
 }
 
-.container h1 {}
+hr {
+    background-color: #fff;
+    height: 2px;
+    width: 90vw;
+    margin: 40px;
+    border: none;
+}
+
+.container h1 {
+    color: var(--main-clr);
+    margin-bottom: 35px;
+}
 
 .container ul {
     display: flex;
     margin-bottom: 35px;
-    width: 53%;
+    width: 45vw;
     align-items: center;
     justify-content: space-between;
 }
 .container ul li {
     cursor: pointer;
     background-color: white;
+    color: var(--main-clr);
+    font-weight: bold;
     padding: 4px 10px;
     border-radius: 4px;
+    border-right: 3px solid;
+}
+.container ul li.active {
+    background-color: #795548;
+    color: white;
+    border-right: 3px solid;
 }
 
 .container .tasks {
@@ -60,6 +110,7 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    width: 45vw;
 }
 
 .container .tasks .task {
@@ -70,6 +121,7 @@ body {
     background-color: white;
     padding: 5px;
     border-radius: 5px;
+    color: var(--main-clr);
 }
 
 .container .tasks .task .txt {
@@ -93,23 +145,31 @@ body {
 }
 
 .actions .btn {
+    background-color: var(--main-clr);
+    color: #fff;
     padding: 4px 8px;
     width: fit-content;
     border-radius: 2px;
-    color: #fff;
     text-transform: capitalize;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 14px;
+    transition: all .5s;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -ms-transition: all .5s;
+    -o-transition: all .5s;
 }
 
-.actions .btn.done {
+.actions .btn.done:hover,
+.actions .btn.done:hover:focus {
     background-color: yellowgreen;
 }
 
-.actions .btn.delete {
+.actions .btn.delete:hover,
+.actions .btn.delete:hover:focus {
     background-color: indianred;
 }
 
@@ -130,6 +190,21 @@ body {
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
+    background-color: white;
+    color: var(--main-clr);
+    border-bottom: 3px solid;
 }
 .container .info .quantity {}
-.container .info .delete-all {}
+.container .info .delete-all {
+    cursor: pointer;
+    transition: all .5s;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -ms-transition: all .5s;
+    -o-transition: all .5s;
+}
+.container .info .delete-all:hover {
+    scale: 1.1;
+    background-color: indianred;
+    color: white;
+}

@@ -42,11 +42,11 @@ if(storedTasks){
         if(tasks.length > 0) {
             empty.textContent = "";
         } else {
-            empty.textContent = "there is no tasks yet";
+            empty.textContent = "لا يوجد عبادات أو مهمات بعد ..";
         }
     
 } else {
-    empty.textContent = "there is no tasks yet";
+    empty.textContent = "لا يوجد عبادات أو مهمات بعد ..";
 }
 
 tasks.forEach(task => {
@@ -56,7 +56,7 @@ tasks.forEach(task => {
 
 addBtn.addEventListener("click", function(){
     if(input.value == "") {
-        document.querySelector(".error").textContent = "Please write a specific task .. !";
+        document.querySelector(".error").textContent = "برجَاء كِتَابة عِبَادةٌ ما أو مُهمَّةٌ ما ..";
     } else {
         document.querySelector(".error").textContent = "";
         tasks.push({
