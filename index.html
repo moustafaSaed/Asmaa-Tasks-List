@@ -8,18 +8,22 @@
     <title>قائمة العبادات اليومية</title>
 </head>
 <body>
+    <div class="message">
+        <p class="txt"></p>
+        <div class="undo">الغاء</div>
+    </div>
     <div class="container">
-        <h1>قائمة العبادات اليومية</h1>
+        <h1>قَائِمَةُ العِبَادَاتِ اليَوميَّـة</h1>
         <div class="form">
             <input type="text" class="input">
             <input type="submit" class="add" value="إضـافـــة">
         </div>
         <div class="error"></div>
         <hr>
-        <ul class="nav">
-            <li class="active">كل المهام</li>
-            <li>المهام المكتملة</li>
-            <li>المهام الحالية</li>
+        <ul class="nav filter-nav">
+            <li class="all" data-type="all">كل المهام</li>
+            <li class="comp active" data-type="comp">المهام المكتملة</li>
+            <li class="current" data-type="current">المهام الحالية</li>
         </ul>
         <div class="no-tasks">
             
@@ -49,7 +53,7 @@
         </div>
         <div class="info">
             <div class="quantity">
-                عدد المهام 6 مهمة
+                
             </div>
             <div class="delete-all">
                 مسح جميع المهام

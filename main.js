@@ -4,9 +4,18 @@ const form = document.querySelector(".form");
 const input = document.querySelector(".input");
 const addBtn = document.querySelector(".add");
 const tasksBox = document.querySelector(".tasks");
-const empty = document.querySelector(".no-tasks");
+const empty = document.querySelector(".no-tasks"); // appear when there is no tasks
+const taskQuantity = document.querySelector(".quantity");
+const message = document.querySelector(".message");
+const messageTxt = document.querySelector(".message .txt");
+const undoBtn = document.querySelector(".undo");
 
 
+/* a function for :
+    - create task elements
+    - add classes to elements
+    - add elements to the page
+*/
 var createTaskTemplate = function(content) {
     const taskItem = document.createElement("div");
     taskItem.classList.add("task");
@@ -34,29 +43,125 @@ var createTaskTemplate = function(content) {
     actionsBox.appendChild(deleteBtn);
 }
 
-var tasks = [];  // 1
+/* a function for making a message as alert at 
+    -- success
+    -- failed
+    -- info 
+*/
+var alertMess = function(txt,type){
+    if(type == "success"){
+        message.classList.add("success");
+    } else if(type == "info") {
+        message.classList.add("info");
+    } else if(type == "failed") {
+        message.classList.add("failed");
+    } else {
+        message.style.display = "none";
+    }
 
+    messageTxt.textContent = txt;
+    message.style.right = "30px";
+
+    setTimeout(() => {
+        message.style.right = "-30vw";
+    }, 3300);
+}
+
+
+var tasks = [];  // 1
+var currentTasks = []; 
+var completedTasks = [];  
+
+// check if there is a tasks in the browser local storage
 var storedTasks = window.localStorage.getItem("tasks");
-if(storedTasks){
+if(storedTasks){ 
         tasks = JSON.parse(storedTasks);
         if(tasks.length > 0) {
             empty.textContent = "";
+            empty.classList.remove("more");
+            taskQuantity.textContent =`عدد المهام : ${tasks.length} مهمة`;
         } else {
+            taskQuantity.textContent =`في انتظار المهام ..`;
             empty.textContent = "لا يوجد عبادات أو مهمات بعد ..";
+            empty.classList.add("more");
         }
-    
-} else {
+        
+    } else {
+    taskQuantity.textContent =`في انتظار المهام ..`;
     empty.textContent = "لا يوجد عبادات أو مهمات بعد ..";
+    empty.classList.add("more");
 }
 
-tasks.forEach(task => {
-    createTaskTemplate(task.taskValue);
+var storedCompleteTasks = window.localStorage.getItem("completed-tasks");
+if(storedCompleteTasks) {
+    completedTasks = JSON.parse(storedCompleteTasks);
+}
+
+var storedCurrentTasks = window.localStorage.getItem("current-tasks");
+if(storedCurrentTasks) {
+    currentTasks = JSON.parse(storedCurrentTasks);
+}
+
+
+
+// showing the tasks if exist
+if(document.querySelector('.nav .all').classList.contains("active")) {
+    tasks.forEach(task => {
+        createTaskTemplate(task.taskValue);
+    });
+} else if(document.querySelector('.nav .current').classList.contains("active")) {
+    currentTasks.forEach(task => {
+        createTaskTemplate(task.taskValue);
+    });
+} else if(document.querySelector('.nav .comp').classList.contains("active")) {
+    completedTasks.forEach(task => {
+        createTaskTemplate(task.taskValue);
+    });
+}
+
+// filteration 
+const filters = document.querySelectorAll(".filter-nav li");
+filters.forEach(filter => {
+    filter.addEventListener("click",()=>{
+        var type = filter.getAttribute("data-type");
+        console.log(type);
+        switch (type) {
+            case "comp":
+                var completedTasks = tasks.filter(task => task.isCompleted === true);
+                var stringTasks = JSON.stringify(completedTasks);
+                window.localStorage.setItem("completed-tasks", stringTasks);
+                window.location.reload();
+                break;
+            case "current":
+                var currentTasks = tasks.filter(task => task.isCompleted === false);
+                var stringTasks = JSON.stringify(currentTasks);
+                window.localStorage.setItem("current-tasks", stringTasks);
+                window.location.reload();
+                break;
+                default:
+                window.location.reload();
+                break;
+        }
+    })
+});
+
+const tasksArr = document.querySelectorAll(".tasks .task");
+
+
+// check if the task is completed or not 
+tasksArr.forEach((el,index) => {
+    if(tasks[index].isCompleted) {
+        el.classList.add("completed");
+    }
 });
 
 
+// when click on addTask button 
 addBtn.addEventListener("click", function(){
     if(input.value == "") {
         document.querySelector(".error").textContent = "برجَاء كِتَابة عِبَادةٌ ما أو مُهمَّةٌ ما ..";
+        document.querySelector(".error").style.backgroundColor = "#fff";
+
     } else {
         document.querySelector(".error").textContent = "";
         tasks.push({
@@ -64,37 +169,75 @@ addBtn.addEventListener("click", function(){
             taskValue: input.value,
             isCompleted : false
         });
+        var inputValue = input.value;
         input.value = "";
         stringTasks = JSON.stringify(tasks);
         window.localStorage.setItem("tasks", stringTasks); 
         var getTasks = window.localStorage.getItem("tasks");
         tasks = JSON.parse(getTasks);
-        window.location.reload();
+        alertMess(`تمَّت إضَافة المُهمَّة : " ${inputValue} " بنجـَـاح`,"success");
+        setTimeout(() => {
+            window.location.reload();
+        }, 3300);
     }
 })
 
 
+// complete task button
 const doneBtns = document.querySelectorAll(".done")
 doneBtns.forEach(btn => {
+
     btn.addEventListener("click", ()=>{
-        console.log(btn.parentElement.parentElement.querySelector(".txt").innerHTML);
-        btn.parentElement.parentElement.classList.toggle("completed");
-    })
+
+        var targetValue = btn.parentElement.parentElement.querySelector(".txt").innerHTML;
+        var targetIndex = tasks.findIndex(item => item.taskValue === targetValue);
+
+        if(btn.parentElement.parentElement.classList.contains("completed")) {
+            btn.parentElement.parentElement.classList.remove("completed");
+            tasks[targetIndex].isCompleted = false;
+            var stringTasks = JSON.stringify(tasks);
+            window.localStorage.setItem("tasks", stringTasks);
+        } else {
+            btn.parentElement.parentElement.classList.add("completed");
+            tasks[targetIndex].isCompleted = true;
+            var stringTasks = JSON.stringify(tasks);
+            window.localStorage.setItem("tasks", stringTasks);
+        }
+    });
 });
 
 
+
+// delete task button
 const deleteBtn = document.querySelectorAll(".delete");
+
 deleteBtn.forEach(btn => {
     btn.addEventListener("click", ()=>{
-        // const index = tasks.indexOf()
         var targetValue = btn.parentElement.parentElement.querySelector(".txt").innerHTML;
         var targetIndex = tasks.findIndex(item => item.taskValue === targetValue);
+        var deletedId = tasks[targetIndex].id;
+        var deletedValue = tasks[targetIndex].taskValue;
+        var deletedIsCompleted = tasks[targetIndex].isCompleted;
         tasks.splice(targetIndex, 1);
-        console.log(tasks);
-        // btn.parentElement.parentElement.remove();
+        
         stringTasks = JSON.stringify(tasks);
         window.localStorage.setItem("tasks", stringTasks);
-        window.location.reload();
+
+        alertMess(`تم حذف المهمة : " ${targetValue} " بنجاح`,"failed");
+
+        undoBtn.addEventListener("click", ()=> {
+            tasks.push({
+                id: deletedId,
+                taskValue: deletedValue,
+                isCompleted : deletedIsCompleted
+            });
+            stringTasks = JSON.stringify(tasks);
+            window.localStorage.setItem("tasks", stringTasks); 
+        })
+
+        setTimeout(() => {
+            window.location.reload();
+        }, 3000);
     })
 });
 
@@ -105,3 +248,5 @@ deleteAllBtn.addEventListener("click", ()=>{
     window.localStorage.removeItem("tasks");
     window.location.reload();
 })
+
+

@@ -13,6 +13,47 @@ body {
     background-size: cover;
 }
 
+.message {
+    transition: all 1s;
+    position: absolute;
+    right: -30vw;
+    /* right: 30px;
+    background-color: #009688; */
+    font-size: 18px;
+    top: 30px;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border-bottom: 3px solid;
+}
+.message.success {
+    background-color: #009688;
+}
+.message.info {
+    background-color: #af8677;
+}
+.message.failed {
+    background-color: #f44336;
+}
+
+.message .undo {
+    background-color: white;
+    color: var(--main-clr);
+    padding: 3px 6px;
+    width: fit-content;
+    border-radius: 3px;
+    margin: 8px auto 3px 3px;
+    border: 1px solid;
+    cursor: pointer;
+} 
+.message .undo:hover {
+    background-color: var(--main-clr);
+    color: white;
+}
+.message:hover {
+    right: 30px !important;
+}
+
 .container {
     width: 90vw;
     min-height: 90vh;
@@ -40,6 +81,8 @@ body {
     border-radius: 3px;
     border: none;
     outline: none;
+    font-size: 17px;
+    font-weight: bold;
 }
 
 .container input.input {
@@ -64,10 +107,13 @@ body {
 }
 
 .error {
-    font-size: 14px;
-    margin-top: 7px;
+    font-size: 18px;
+    margin-top: 12px;
     color: orangered;
     text-indent: 11px;
+    padding: 5px 10px;
+    border-radius: 9px 0;
+    transition: all 1s;
 }
 
 hr {
@@ -111,6 +157,7 @@ hr {
     align-items: center;
     gap: 10px;
     width: 45vw;
+    /* display: none; */
 }
 
 .container .tasks .task {
@@ -173,7 +220,19 @@ hr {
     background-color: indianred;
 }
 
-
+.no-tasks {
+    font-size: 22px;
+    color: var(--main-clr);
+    transition: all .5s;
+}
+.no-tasks.more {
+    margin: 20px auto;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: white;
+    border-top: 4px solid;
+    border-bottom: 4px solid;
+}
 
 .container .info {
     display: flex;
