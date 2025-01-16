@@ -9,6 +9,8 @@ const taskQuantity = document.querySelector(".quantity");
 const message = document.querySelector(".message");
 const messageTxt = document.querySelector(".message .txt");
 const undoBtn = document.querySelector(".undo");
+const filters = document.querySelectorAll(".filter-nav li"); // 3 filters li
+
 
 
 /* a function for :
@@ -72,8 +74,12 @@ var tasks = [];  // 1
 var currentTasks = []; 
 var completedTasks = [];  
 
+
+//                 ---          Handeling Local Storage         ---
+
 // check if there is a tasks in the browser local storage
 var storedTasks = window.localStorage.getItem("tasks");
+
 if(storedTasks){ 
         tasks = JSON.parse(storedTasks);
         if(tasks.length > 0) {
@@ -102,27 +108,49 @@ if(storedCurrentTasks) {
     currentTasks = JSON.parse(storedCurrentTasks);
 }
 
+// put an active class on the filtering box
+var activeFilter = window.localStorage.getItem("activeEl");
+if(activeFilter){
+    var activeValue = JSON.parse(activeFilter);
+    filters.forEach(one=>{
+        one.classList.remove("active");
+        if(one.textContent === activeValue) {
+            one.classList.add("active");
+        }
+    })
+}
 
 
 // showing the tasks if exist
 if(document.querySelector('.nav .all').classList.contains("active")) {
     tasks.forEach(task => {
         createTaskTemplate(task.taskValue);
+        taskQuantity.textContent =`عدد المهام : ${tasks.length} مهمة`;
     });
 } else if(document.querySelector('.nav .current').classList.contains("active")) {
     currentTasks.forEach(task => {
         createTaskTemplate(task.taskValue);
+        taskQuantity.textContent =`عدد المهام الحالية  : ${currentTasks.length} مهمة`;
     });
 } else if(document.querySelector('.nav .comp').classList.contains("active")) {
     completedTasks.forEach(task => {
         createTaskTemplate(task.taskValue);
+        taskQuantity.textContent =`عدد المهام المكتملة : ${completedTasks.length} مهمة`;
     });
 }
 
 // filteration 
-const filters = document.querySelectorAll(".filter-nav li");
+
 filters.forEach(filter => {
     filter.addEventListener("click",()=>{
+
+        // Handeling Local Storage 
+        filters.forEach(el=>el.classList.remove("active")); // remove all active classes
+        filter.classList.add("active"); // put an active class on the target one
+        activeValue = JSON.stringify(filter.textContent); // string the value to be storable in local storage
+        window.localStorage.setItem("activeEl",activeValue); // set the value in the local storage
+        
+
         var type = filter.getAttribute("data-type");
         console.log(type);
         switch (type) {
@@ -138,6 +166,12 @@ filters.forEach(filter => {
                 window.localStorage.setItem("current-tasks", stringTasks);
                 window.location.reload();
                 break;
+            case "all":
+                var allTasks = tasks;
+                var stringTasks = JSON.stringify(allTasks);
+                window.localStorage.setItem("tasks", stringTasks);
+                window.location.reload();
+                break;
                 default:
                 window.location.reload();
                 break;
@@ -147,11 +181,12 @@ filters.forEach(filter => {
 
 const tasksArr = document.querySelectorAll(".tasks .task");
 
-
 // check if the task is completed or not 
 tasksArr.forEach((el,index) => {
     if(tasks[index].isCompleted) {
         el.classList.add("completed");
+    } else {
+        el.classList.remove("completed");
     }
 });
 
@@ -248,5 +283,3 @@ deleteAllBtn.addEventListener("click", ()=>{
     window.localStorage.removeItem("tasks");
     window.location.reload();
 })
-
-
