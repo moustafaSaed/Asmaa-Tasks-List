@@ -3,7 +3,7 @@
 }
 
 body {
-    min-height: 100vh;
+    height: 100vh;
     width: 100vw;
     display: flex;
     align-items: center;
@@ -111,7 +111,7 @@ body {
 
 .container {
     width: 90vw;
-    min-height: 90vh;
+    height: 90vh;
     background-color: #e5cec5;
     display: flex;
     flex-direction: column;
@@ -224,8 +224,7 @@ hr {
 
 .container .tasks {
     overflow: auto;
-    height: 53vh;
-    height: 43vh;
+    max-height: 43vh;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -386,7 +385,7 @@ hr {
 
     .container {
         width: 89vw;
-        min-height: 91vh;
+        height: 91vh;
         padding: 5px;
     }
 
@@ -407,7 +406,7 @@ hr {
     }
 
     .container .tasks {
-        height: 52vh;
+        max-height: 52vh;
     }
 
 }
