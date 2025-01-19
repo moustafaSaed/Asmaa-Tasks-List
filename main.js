@@ -104,16 +104,16 @@ if (storedTasks) { // if you found a tasks in local storage
     if (tasks.length > 0) { // if there is a tasks in the defined var in local storage 
         empty.textContent = ""; // delete the content of the empty message element
         empty.classList.remove("more"); // by removing this class > we hide the empty element
-        taskQuantity.textContent = ` ${tasks.length} مهمة`; // dynamic div giv the total tasks numbers
+        taskQuantity.textContent = ` ${tasks.length} مُهمَّة`; // dynamic div giv the total tasks numbers
     } else {
-        taskQuantity.textContent = `في انتظار المهام ..`;
-        empty.textContent = "لا يوجد عبادات أو مهمات بعد ..";
+        taskQuantity.textContent = `فِي انتظَار المَهَام ..`;
+        empty.textContent = "لا يُوجَد عِبَادات أو مُهمَّات بَعد ..";
         empty.classList.add("more");
     }
 
 } else { // if there is no tasks in local storage
-    taskQuantity.textContent = `في انتظار المهام ..`;
-    empty.textContent = "لا يوجد عبادات أو مهمات بعد ..";
+    taskQuantity.textContent = `فِي انتظَار المَهَام ..`;
+    empty.textContent = "لا يُوجَد عِبَادات أو مُهمَّات بَعد ..";
     empty.classList.add("more");
 }
 
@@ -136,21 +136,21 @@ if (document.querySelector('.nav .all').classList.contains("active")) {
     tasks.forEach(task => {
         createTaskTemplate(task.taskValue, task.isCompleted); // predefined function - (the content of task, if true > put completed class)
     });
-    taskQuantity.textContent = ` ${tasks.length} مهمة`;
+    taskQuantity.textContent = ` ${tasks.length} مُهمَّة`;
 
 } else if (document.querySelector('.nav .current').classList.contains("active")) {
     currentTasks = tasks.filter(a => a.isCompleted === false);
     currentTasks.forEach(task => {
         createTaskTemplate(task.taskValue);
     });
-    taskQuantity.textContent = `الحالية  : ${currentTasks.length} مهمة`;
+    taskQuantity.textContent = `الحَاليَة  : ${currentTasks.length} مُهمَّة`;
 
 } else if (document.querySelector('.nav .comp').classList.contains("active")) {
     completedTasks = tasks.filter(a => a.isCompleted === true);
     completedTasks.forEach(task => {
         createTaskTemplate(task.taskValue, task.isCompleted);
     });
-    taskQuantity.textContent = `المكتملة : ${completedTasks.length} مهمة`;
+    taskQuantity.textContent = `المُكتَمِلَة : ${completedTasks.length} مُهمَّة`;
 }
 
 
@@ -275,7 +275,7 @@ deleteBtn.forEach(btn => {
         stringTasks = JSON.stringify(tasks);
         window.localStorage.setItem("tasks", stringTasks);
 
-        alertMess(`تم حذف المهمة : " ${targetValue} " بنجاح`, "failed");
+        alertMess(`تَم حَذف المُهمَّة : " ${targetValue} " بِنَجَاح`, "failed");
 
         undoBtn.addEventListener("click", () => {
             tasks.push({
