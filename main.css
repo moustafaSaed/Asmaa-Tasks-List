@@ -10,11 +10,12 @@ body {
     align-items: center;
     justify-content: center;
     direction: rtl;
-    background-image: url("imgs/backgrounds/backg.png");
     background-size: cover;
-    /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 14px;
+    background-color: #e5cec5;
+    background-image: url("imgs/icons/butterBackReapeat1.png");
+    background-size: auto;
 }
 
 .message {
@@ -111,9 +112,8 @@ body {
 
 
 .container {
-    width: 90vw;
-    height: 90vh;
-    background-color: #e5cec5;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -124,8 +124,6 @@ body {
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
     position: relative;
-    background-image: url("imgs/icons/niqap5\ \(2\)\(1\).png");
-    background-image: url("imgs/icons/butterBackReapeat1.png");
 }
 
 .container .form {
@@ -354,8 +352,8 @@ hr {
 
 .container .celever-icon {
     position: absolute;
-    bottom: -10px;
-    width: 102px;
+    bottom: -11px;
+    width: 111px;
     z-index: 19;
 }
 
@@ -367,20 +365,18 @@ hr {
     border-left: 5px solid;
     border-right: 5px solid;
     box-shadow: 0 0 3px 3px var(--main-clr);
-    margin-top: 5px;
-    font-size: 12px;
+    margin: 7px;
+    font-size: 10px;
     text-align: center;
     position: relative;
     z-index: 20;
-    font-weight: 800;
+
 }
-.copies .l1 {
-    margin-bottom: 5px;
-}
+
 @media (max-width: 600px) {
-    body {
-        background-image: url("imgs/backgrounds/smallBck.png");
-    }
+    /* body {
+        background-image: url("imgs/backgrounds/smallBck\ \(1\).png");
+    } */
 
     .message {
         transition: all 1s;
@@ -405,8 +401,8 @@ hr {
     }
 
     .container {
-        width: 89vw;
-        height: 91vh;
+        width: 100%;
+        height: 100%;
         padding: 5px;
     }
 
@@ -427,7 +423,7 @@ hr {
     }
 
     .container .tasks {
-        max-height: 52vh;
+        max-height: 41vh;
     }
 
 }
