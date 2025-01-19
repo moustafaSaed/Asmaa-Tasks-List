@@ -11,48 +11,103 @@ body {
     direction: rtl;
     background-image: url("imgs/backgrounds/backg.png");
     background-size: cover;
+    /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
 }
 
 .message {
     transition: all 1s;
     position: absolute;
-    right: -30vw;
-    /* right: 30px;
-    background-color: #009688; */
     font-size: 18px;
-    top: 30px;
+    width: 27vw;
+    top: 15px;
+    right: 15px;
+    /* transform: translateY(-50%); */
     color: white;
+    /* width: 86vw; */
+    height: fit-content;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    align-items: center;
     padding: 10px 20px;
     border-radius: 5px;
     border-bottom: 3px solid;
+    z-index: 999;
+    scale: 0;
 }
+
+.message .undo {
+    padding: 7px 25px;
+    width: fit-content;
+    margin: 0 auto;
+    border-radius: 3px;
+    border: 1px solid;
+    cursor: pointer;
+    text-align: center;
+    transition: all .5s;
+}
+
+.message .undo:hover {
+    scale: 1.02;
+}
+
 .message.success {
     background-color: #009688;
 }
+
+.message.success .undo {
+    background-color: #fff;
+    color: #009688;
+}
+
+
+
 .message.info {
     background-color: #af8677;
 }
+
+.message.info .undo {
+    background-color: #fff;
+    color: #af8677;
+}
+
+
 .message.failed {
     background-color: #f44336;
 }
 
-.message .undo {
-    background-color: white;
-    color: var(--main-clr);
-    padding: 3px 6px;
-    width: fit-content;
+.message.failed .undo {
+    background-color: #fff;
+    color: #f44336;
+}
+
+
+::-webkit-scrollbar {
+    width: 12px;
     border-radius: 3px;
-    margin: 8px auto 3px 3px;
-    border: 1px solid;
-    cursor: pointer;
-} 
-.message .undo:hover {
+    /* Adjust scrollbar width */
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 3px;
+    background-color: #fff;
+    /* Track color */
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 3px;
     background-color: var(--main-clr);
-    color: white;
+    /* Thumb color */
 }
-.message:hover {
-    right: 30px !important;
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #af8677;
+    /* Thumb color on hover */
 }
+
 
 .container {
     width: 90vw;
@@ -67,6 +122,7 @@ body {
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
+    position: relative;
 }
 
 .container .form {
@@ -89,6 +145,7 @@ body {
     color: var(--main-clr);
     border: 1px solid;
     width: 34vw;
+    width: 74%;
 }
 
 .container input.add {
@@ -99,9 +156,12 @@ body {
     -moz-transition: all .5s;
     -ms-transition: all .5s;
     -o-transition: all .5s;
-    width: 9vw;
+    width: 24%;
+    cursor: pointer;
 }
-.container input.add:focus {
+
+.container input.add:focus,
+.container input.add:hover {
     opacity: .9;
     scale: 1.05;
 }
@@ -113,6 +173,7 @@ body {
     text-indent: 11px;
     padding: 5px 10px;
     border-radius: 9px 0;
+    display: none;
     transition: all 1s;
 }
 
@@ -136,8 +197,10 @@ hr {
     align-items: center;
     justify-content: space-between;
 }
+
 .container ul li {
     cursor: pointer;
+    transition: all .5s;
     background-color: white;
     color: var(--main-clr);
     font-weight: bold;
@@ -145,6 +208,14 @@ hr {
     border-radius: 4px;
     border-right: 3px solid;
 }
+
+.container ul li:hover {
+    background-color: #a57765;
+    color: white;
+    border-right: 3px solid;
+}
+
+
 .container ul li.active {
     background-color: #795548;
     color: white;
@@ -152,9 +223,12 @@ hr {
 }
 
 .container .tasks {
+    overflow: auto;
+    height: 53vh;
+    height: 43vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     gap: 10px;
     width: 45vw;
     /* display: none; */
@@ -164,7 +238,7 @@ hr {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 45vw;
+    width: 97%;
     background-color: white;
     padding: 5px;
     border-radius: 5px;
@@ -178,9 +252,11 @@ hr {
 .container .tasks .task.completed {
     opacity: .7;
 }
+
 .container .tasks .task.completed .txt {
     text-decoration: line-through;
 }
+
 .container .tasks .task.completed .actions .btn {
     opacity: .5;
 }
@@ -225,6 +301,7 @@ hr {
     color: var(--main-clr);
     transition: all .5s;
 }
+
 .no-tasks.more {
     margin: 20px auto;
     padding: 10px 15px;
@@ -239,8 +316,10 @@ hr {
     align-items: center;
     justify-content: space-between;
     width: 90%;
+    width: 45vw;
     margin-top: 35px;
 }
+
 .container .info div {
     width: fit-content;
     padding: 5px 10px;
@@ -253,7 +332,9 @@ hr {
     color: var(--main-clr);
     border-bottom: 3px solid;
 }
+
 .container .info .quantity {}
+
 .container .info .delete-all {
     cursor: pointer;
     transition: all .5s;
@@ -262,8 +343,71 @@ hr {
     -ms-transition: all .5s;
     -o-transition: all .5s;
 }
+
 .container .info .delete-all:hover {
     scale: 1.1;
     background-color: indianred;
     color: white;
+}
+
+.container .celever-icon {
+    position: absolute;
+    bottom: 0px;
+    width: 90px;
+}
+
+
+@media (max-width: 600px) {
+    body {
+        background-image: url("imgs/backgrounds/smallBck.png");
+    }
+
+    .message {
+        transition: all 1s;
+        position: fixed;
+        font-size: 18px;
+        width: 85vw;
+        top: 50%;
+        right: unset;
+        transform: translateY(-50%);
+        color: white;
+        height: fit-content;
+        gap: 50px;
+        display: flex;
+        flex-direction: column;
+        /* justify-content: space-between; */
+        align-items: center;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border-bottom: unset;
+        z-index: 999;
+        scale: 0;
+    }
+
+    .container {
+        width: 89vw;
+        min-height: 91vh;
+        padding: 5px;
+    }
+
+    .container .form,
+    .container ul,
+    .container .tasks,
+    .container .info {
+        width: 96%;
+    }
+
+    .container h1 {
+        margin-bottom: 15px;
+        margin-top: 10px;
+    }
+
+    hr {
+        margin: 15px;
+    }
+
+    .container .tasks {
+        height: 52vh;
+    }
+
 }
